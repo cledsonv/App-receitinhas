@@ -29,6 +29,9 @@ class CreateRecipeController extends ChangeNotifier {
   final quillInstructionController = QuillController.basic();
   final quillServerController = QuillController.basic();
   File? thumbImage;
+  bool isWriteTime = false;
+  final hourController = TextEditingController();
+  final minuteController = TextEditingController();
 
   void init() {
     pageController = PageController(initialPage: 0);
@@ -49,7 +52,7 @@ class CreateRecipeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void pickMultiMedia() async {
+  Future<void> pickMultiMedia() async {
     List<XFile> listImage = await ImagePicker().pickMultipleMedia();
     for (var image in listImage) {
       listMultiMedia.add(File(image.path));

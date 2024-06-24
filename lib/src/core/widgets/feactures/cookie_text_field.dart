@@ -13,6 +13,11 @@ class CookieTextField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final int? maxLength;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+final void Function(String)? onChanged;
 
   const CookieTextField(
       {super.key,
@@ -25,7 +30,9 @@ class CookieTextField extends StatelessWidget {
       this.maxLines,
       this.borderRadius,
       this.maxLength,
-      this.minLines})
+      this.minLines,
+      this.keyboardType,
+      this.inputFormatters, this.style,  this.textAlign, this.onChanged})
       : border = true;
 
   const CookieTextField.outline({
@@ -40,6 +47,8 @@ class CookieTextField extends StatelessWidget {
     this.borderRadius,
     this.maxLength,
     this.minLines,
+    this.keyboardType,
+    this.inputFormatters, this.style,  this.textAlign, this.onChanged,
   }) : border = false;
 
   @override
@@ -47,12 +56,16 @@ class CookieTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       obscureText: obscureText,
       maxLines: maxLines,
+      textAlign:  textAlign ?? TextAlign.start,
       minLines: minLines,
       maxLength: maxLength,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+      style: style ?? Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onPrimary,
           ),
       decoration: InputDecoration(
